@@ -1,33 +1,30 @@
-## Put comments here that give an overall description of what your
+## This functions are for making inverse matrix, and caching the result.
 ## functions do
 
-## Write a short comment describing this function
-
+##makeCacheMatrix : the function that makes matrix which can contain inverseMatrix
 makeCacheMatrix <- function(x = matrix()) {
-   m <- NULL
+   inv <- NULL
    set <- function(y = matrix()) {
       x <<- y
-      m <<- NULL
+      inv <<- NULL
    }
    get <- function() x
-   setinvmat <- function(invmat = matrix()) m <<- invmat
-   getinvmat <- function() m
+   setinvmat <- function(invmat = matrix()) inv <<- invmat
+   getinvmat <- function() inv
    list(set = set, get = get,
         setinv = setinvmat,
         getinv = getinvmat)
 }
 
-
-## Write a short comment describing this function
-
+## If there is no cache, Calulate and save the inversematrix of inpu matrix.
 cacheSolve <- function(x, ...) {
-   m <- x$getinv()
-   if(!is.null(m)) {
+   inv <- x$getinv()
+   if(!is.null(inv)) {
       message("getting cached data")
-      return(m)
+      return(inv)
    }
    data <- x$get()
-   m <- solve(data, ...)
-   x$setinv(m)
-   m
+   inv <- solve(data, ...)
+   x$setinv(inv)
+   inv
 }
